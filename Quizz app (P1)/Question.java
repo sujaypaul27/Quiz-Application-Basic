@@ -1,71 +1,51 @@
-public class Question{
-        private int id;
-    private String question;
-    private String opt1;
-    private String opt2;
-    private String opt3;
-    private String opt4;
-    private String answer;
+import java.util.Arrays;
 
-    
-    public Question(int id, String question, String opt1, String opt2, String opt3, String opt4, String answer) {
+public class Question {
+    private final int id;
+    private final String prompt;
+    private final String[] options;
+    private final String answer;
+    private final String difficulty;
+    private final String category;
+
+    public Question(int id, String prompt, String[] options, String answer, String difficulty, String category) {
+        if (options == null || options.length != 4) {
+            throw new IllegalArgumentException("Each question must have exactly 4 options.");
+        }
+
         this.id = id;
-        this.question = question;
-        this.opt1 = opt1;
-        this.opt2 = opt2;
-        this.opt3 = opt3;
-        this.opt4 = opt4;
-        this.answer = answer;
+        this.prompt = prompt;
+        this.options = Arrays.copyOf(options, options.length);
+        this.answer = answer.trim().toLowerCase();
+        this.difficulty = difficulty;
+        this.category = category;
     }
+
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
+
+    public String getPrompt() {
+        return prompt;
     }
-    public String getQuestion() {
-        return question;
+
+    public String[] getOptions() {
+        return Arrays.copyOf(options, options.length);
     }
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-    public String getOpt1() {
-        return opt1;
-    }
-    public void setOpt1(String opt1) {
-        this.opt1 = opt1;
-    }
-    public String getOpt2() {
-        return opt2;
-    }
-    public void setOpt2(String opt2) {
-        this.opt2 = opt2;
-    }
-    public String getOpt3() {
-        return opt3;
-    }
-    public void setOpt3(String opt3) {
-        this.opt3 = opt3;
-    }
-    public String getOpt4() {
-        return opt4;
-    }
-    public void setOpt4(String opt4) {
-        this.opt4 = opt4;
-    }
+
     public String getAnswer() {
         return answer;
     }
-    public void setAnswer(String answer) {
-        this.answer = answer;
+
+    public String getDifficulty() {
+        return difficulty;
     }
-    @Override
-    public String toString() {
-        return "Question [id=" + id + ", question=" + question + ", opt1=" + opt1 + ", opt2=" + opt2 + ", opt3=" + opt3
-                + ", opt4=" + opt4 + ", answer=" + answer + ", getId()=" + getId() + ", getQuestion()=" + getQuestion()
-                + ", getOpt1()=" + getOpt1() + ", getOpt2()=" + getOpt2() + ", getOpt3()=" + getOpt3() + ", getOpt4()="
-                + getOpt4() + ", getAnswer()=" + getAnswer() + ", getClass()=" + getClass() + ", hashCode()="
-                + hashCode() + ", toString()=" + super.toString() + "]";
+
+    public String getCategory() {
+        return category;
     }
-    
+
+    public boolean isCorrect(String userAnswer) {
+        return answer.equalsIgnoreCase(userAnswer == null ? "" : userAnswer.trim());
+    }
 }
